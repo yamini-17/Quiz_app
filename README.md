@@ -61,7 +61,7 @@ These pages allow users to securely create an account or log in using their emai
 The About Page explains the purpose of the platform, learning benefits, and available quiz categories, helping users understand what the app offers.
 
 ### **Landing Page**
-![Landing PAge](https://github.com/yamini-17/project-Inventory/blob/main/Screenshot%202025-10-22%20010206.png?raw=true)
+![Landing Page](https://github.com/yamini-17/Quiz_app/blob/main/Screenshot%202025-11-18%20001228.png?raw=true)
 
 The Landing Page provides a clean introduction to the Quiz App, showing an overview, platform purpose, and quick navigation to Login, Create Account, and Dashboard.
 
@@ -78,7 +78,7 @@ Users can take quizzes and receive instantly calculated results, including score
 
 Clone the project using Git or download the ZIP file:
 
-```bash
+```
 git clone https://github.com/yamini-17/Quiz_app.git
 cd Quiz_app
 ```
@@ -89,7 +89,7 @@ cd Quiz_app
 
 Install the required Python packages:
 
-```bash
+```
 pip install -r backend/requirements.txt
 ```
 
@@ -102,7 +102,7 @@ Import the SQL schema:
 1. Open MySQL
 2. Run:
 
-```sql
+```
 source database/schema.sql;
 ```
 
@@ -114,9 +114,9 @@ Update your `.env` file with MySQL credentials.
 
 Start the Flask backend:
 
-```bash
+``
 python backend/app.py
-```
+``
 
 ---
 

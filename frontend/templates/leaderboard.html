@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - Quiz Master</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">🎯 Quiz Master</a>
+            <ul class="navbar-menu">
+                <li><a href="/" class="navbar-link">Home</a></li>
+                <li><a href="/leaderboard" class="navbar-link">Leaderboard</a></li>
+            </ul>
+            <div class="navbar-user" id="navbarUser">
+                <a href="/login" class="btn btn-outline">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">🏆 Top Quiz Masters</div>
+            <div id="leaderboardContainer">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        fetch('/api/auth/me')
+            .then(res => res.json())
+            .then(data => {
+                if (data.user) {
+                    document.getElementById('navbarUser').innerHTML = `
+                        <span class="user-name">${data.user.username}</span>
+                        <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+                    `;
+                }
+            })
+            .catch(() => {});
+
+        // Load leaderboard
+        fetch('/api/leaderboard')
+            .then(res => res.json())
+            .then(data => {
+                displayLeaderboard(data.leaderboard);
+            });
+
+        function displayLeaderboard(leaderboard) {
+            const container = document.getElementById('leaderboardContainer');
+            
+            if (leaderboard.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No data available yet. Be the first to take a quiz!</p>';
+                return;
+            }
+
+            const table = document.createElement('table');
+            table.className = 'leaderboard-table';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Username</th>
+                        <th>Total Attempts</th>
+                        <th>Average Score</th>
+                        <th>Total Score</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                </tbody>
+            `;
+            
+            const tbody = table.querySelector('#leaderboardBody');
+            
+            leaderboard.forEach((user, index) => {
+                const rank = index + 1;
+                const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-other';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><span class="rank-badge ${rankClass}">${rank}</span></td>
+                    <td><strong>${user.username}</strong></td>
+                    <td>${user.total_attempts}</td>
+                    <td>${parseFloat(user.avg_score).toFixed(1)}</td>
+                    <td><strong>${user.total_score}</strong></td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            container.innerHTML = '';
+            container.appendChild(table);
+        }
+    </script>
+</body>
+</html>

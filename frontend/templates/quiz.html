@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Quiz - Quiz Master</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/dashboard" class="navbar-brand">🎯 Quiz Master</a>
+            <div class="navbar-user">
+                <span class="user-name" id="userName">User</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Timer -->
+    <div class="timer" id="timer" style="display: none;">
+        <div class="timer-value" id="timerValue">00:00</div>
+        <div class="timer-label">Time Remaining</div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header" id="quizTitle">Quiz Title</div>
+            <div id="quizDescription" style="color: var(--text-secondary); margin-bottom: 2rem;"></div>
+            
+            <div id="quizContainer">
+                <div class="spinner"></div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                <button class="btn btn-success" id="submitQuizBtn" style="display: none;">Submit Quiz</button>
+                <a href="/dashboard" class="btn btn-outline">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizId = parseInt(window.location.pathname.split('/').pop());
+        let attemptId = null;
+        let answers = {};
+        let timeLimit = 0;
+        let timeRemaining = 0;
+        let timerInterval = null;
+
+        // Load user info
+        fetch('/api/auth/me')
+            .then(res => res.json())
+            .then(data => {
+                if (data.user) {
+                    document.getElementById('userName').textContent = data.user.username;
+                } else {
+                    window.location.href = '/login';
+                }
+            });
+
+        // Load quiz details
+        fetch(`/api/quizzes/${quizId}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('quizTitle').textContent = data.quiz.title;
+                document.getElementById('quizDescription').textContent = data.quiz.description;
+                timeLimit = data.quiz.time_limit * 60; // Convert to seconds
+                startQuiz();
+            });
+
+        function startQuiz() {
+            // Start attempt
+            fetch(`/api/quizzes/${quizId}/start`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(res => res.json())
+            .then(data => {
+                attemptId = data.attempt_id;
+                loadQuestions();
+            });
+        }
+
+        function loadQuestions() {
+            fetch(`/api/quizzes/${quizId}/questions`)
+                .then(res => res.json())
+                .then(data => {
+                    displayQuestions(data.questions);
+                    startTimer();
+                });
+        }
+
+        function displayQuestions(questions) {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+
+            questions.forEach((question, index) => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.innerHTML = `
+                    <span class="question-number">Question ${index + 1}</span>
+                    <div class="question-text">${question.question_text}</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="question_${question.id}" value="A" class="option-radio">
+                            <span>A) ${question.option_a}</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="question_${question.id}" value="B" class="option-radio">
+                            <span>B) ${question.option_b}</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="question_${question.id}" value="C" class="option-radio">
+                            <span>C) ${question.option_c}</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="question_${question.id}" value="D" class="option-radio">
+                            <span>D) ${question.option_d}</span>
+                        </label>
+                    </div>
+                `;
+                container.appendChild(questionCard);
+
+                // Add event listeners
+                questionCard.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        answers[question.id] = e.target.value;
+                        // Update selected style
+                        questionCard.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                        e.target.closest('.option').classList.add('selected');
+                    });
+                });
+            });
+
+            document.getElementById('submitQuizBtn').style.display = 'inline-block';
+        }
+
+        function startTimer() {
+            timeRemaining = timeLimit;
+            document.getElementById('timer').style.display = 'block';
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            document.getElementById('timerValue').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeRemaining < 60) {
+                document.getElementById('timerValue').style.color = 'var(--danger-color)';
+            }
+        }
+
+        function submitQuiz() {
+            if (timerInterval) clearInterval(timerInterval);
+
+            fetch(`/api/quizzes/${quizId}/submit`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ attempt_id: attemptId, answers: answers })
+            })
+            .then(res => res.json())
+            .then(data => {
+                sessionStorage.setItem('quizResults', JSON.stringify(data));
+                window.location.href = '/results';
+            });
+        }
+
+        document.getElementById('submitQuizBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to submit the quiz?')) {
+                submitQuiz();
+            }
+        });
+    </script>
+</body>
+</html>

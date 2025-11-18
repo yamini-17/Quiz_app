@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Quiz Master</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/admin/dashboard" class="navbar-brand">🎯 Quiz Master - Admin</a>
+            <ul class="navbar-menu">
+                <li><a href="/admin/dashboard" class="navbar-link">Dashboard</a></li>
+                <li><a href="/admin/quizzes" class="navbar-link">Manage Quizzes</a></li>
+                <li><a href="/dashboard" class="navbar-link">User View</a></li>
+            </ul>
+            <div class="navbar-user">
+                <span class="user-name" id="userName">Admin</span>
+                <button class="btn btn-danger" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 style="color: white; margin-bottom: 2rem;">Admin Dashboard</h1>
+        
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalQuizzes">0</div>
+                <div class="stat-label">Total Quizzes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalQuestions">0</div>
+                <div class="stat-label">Total Questions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalCategories">0</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalAttempts">0</div>
+                <div class="stat-label">Quiz Attempts</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card">
+            <div class="card-header">⚡ Quick Actions</div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="/admin/quizzes" class="btn btn-primary">Manage Quizzes</a>
+                <button class="btn btn-success" id="createCategoryBtn">Create Category</button>
+                <a href="/leaderboard" class="btn btn-outline">View Leaderboard</a>
+            </div>
+        </div>
+
+        <!-- Recent Quizzes -->
+        <div class="card">
+            <div class="card-header">📚 Recent Quizzes</div>
+            <div id="recentQuizzes">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Category Modal -->
+    <div id="categoryModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+        <div class="card" style="width: 90%; max-width: 500px; margin: 2rem;">
+            <div class="card-header">Create New Category</div>
+            <form id="categoryForm">
+                <div class="form-group">
+                    <label class="form-label">Category Name</label>
+                    <input type="text" class="form-input" id="categoryName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-input" id="categoryDescription"></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-success">Create</button>
+                    <button type="button" class="btn btn-outline" id="closeCategoryModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/admin.js"></script>
+    <script>
+        // Load user info
+        fetch('/api/auth/me')
+            .then(res => res.json())
+            .then(data => {
+                if (data.user && data.user.role === 'admin') {
+                    document.getElementById('userName').textContent = data.user.username;
+                } else {
+                    window.location.href = '/dashboard';
+                }
+            });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            fetch('/api/auth/logout', { method: 'POST' })
+                .then(() => window.location.href = '/login');
+        });
+
+        // Load stats
+        loadAdminStats();
+
+        // Category modal
+        document.getElementById('createCategoryBtn').addEventListener('click', () => {
+            document.getElementById('categoryModal').style.display = 'flex';
+        });
+
+        document.getElementById('closeCategoryModal').addEventListener('click', () => {
+            document.getElementById('categoryModal').style.display = 'none';
+        });
+
+        document.getElementById('categoryForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            createCategory();
+        });
+    </script>
+</body>
+</html>

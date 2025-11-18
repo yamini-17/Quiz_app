@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results - Quiz Master</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/dashboard" class="navbar-brand">🎯 Quiz Master</a>
+            <div class="navbar-user">
+                <span class="user-name" id="userName">User</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+            <h1 style="margin-bottom: 1rem;">Quiz Completed!</h1>
+            <div style="font-size: 3rem; font-weight: bold; color: var(--primary-color); margin-bottom: 1rem;" id="scoreDisplay">0/0</div>
+            <p style="font-size: 1.25rem; color: var(--text-secondary);" id="percentageDisplay">0%</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">📝 Detailed Results</div>
+            <div id="resultsContainer"></div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="/dashboard" class="btn btn-primary">Back to Dashboard</a>
+            <a href="/leaderboard" class="btn btn-outline">View Leaderboard</a>
+        </div>
+    </div>
+
+    <script>
+        // Load user info
+        fetch('/api/auth/me')
+            .then(res => res.json())
+            .then(data => {
+                if (data.user) {
+                    document.getElementById('userName').textContent = data.user.username;
+                }
+            });
+
+        // Load results from session storage
+        const results = JSON.parse(sessionStorage.getItem('quizResults'));
+        
+        if (!results) {
+            window.location.href = '/dashboard';
+        } else {
+            displayResults(results);
+            sessionStorage.removeItem('quizResults');
+        }
+
+        function displayResults(data) {
+            const score = data.score;
+            const totalQuestions = data.total_questions;
+            const percentage = ((score / (totalQuestions * 10)) * 100).toFixed(1);
+
+            document.getElementById('scoreDisplay').textContent = `${score} Points`;
+            document.getElementById('percentageDisplay').textContent = 
+                `You answered ${data.results.filter(r => r.is_correct).length} out of ${totalQuestions} questions correctly (${percentage}%)`;
+
+            const container = document.getElementById('resultsContainer');
+            
+            data.results.forEach((result, index) => {
+                const resultCard = document.createElement('div');
+                resultCard.className = 'question-card';
+                
+                const isCorrect = result.is_correct;
+                const correctClass = isCorrect ? 'correct' : 'incorrect';
+                
+                resultCard.innerHTML = `
+                    <span class="question-number" style="background: ${isCorrect ? 'var(--success-color)' : 'var(--danger-color)'}">
+                        Question ${index + 1} ${isCorrect ? '✓' : '✗'}
+                    </span>
+                    <div class="question-text">${result.question_text}</div>
+                    <div class="options">
+                        <div class="option ${result.selected_option === 'A' ? correctClass : ''} ${result.correct_option === 'A' ? 'correct' : ''}">
+                            <span>A) ${getOptionText(result, 'A')}</span>
+                            ${result.correct_option === 'A' ? '<span style="margin-left: auto; font-weight: bold; color: var(--success-color);">✓ Correct</span>' : ''}
+                        </div>
+                        <div class="option ${result.selected_option === 'B' ? correctClass : ''} ${result.correct_option === 'B' ? 'correct' : ''}">
+                            <span>B) ${getOptionText(result, 'B')}</span>
+                            ${result.correct_option === 'B' ? '<span style="margin-left: auto; font-weight: bold; color: var(--success-color);">✓ Correct</span>' : ''}
+                        </div>
+                        <div class="option ${result.selected_option === 'C' ? correctClass : ''} ${result.correct_option === 'C' ? 'correct' : ''}">
+                            <span>C) ${getOptionText(result, 'C')}</span>
+                            ${result.correct_option === 'C' ? '<span style="margin-left: auto; font-weight: bold; color: var(--success-color);">✓ Correct</span>' : ''}
+                        </div>
+                        <div class="option ${result.selected_option === 'D' ? correctClass : ''} ${result.correct_option === 'D' ? 'correct' : ''}">
+                            <span>D) ${getOptionText(result, 'D')}</span>
+                            ${result.correct_option === 'D' ? '<span style="margin-left: auto; font-weight: bold; color: var(--success-color);">✓ Correct</span>' : ''}
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 1rem; background: ${isCorrect ? '#d1fae5' : '#fee2e2'}; border-radius: 0.5rem;">
+                        ${isCorrect 
+                            ? `<strong style="color: var(--success-color);">Correct!</strong> You earned ${result.points} points.`
+                            : `<strong style="color: var(--danger-color);">Incorrect.</strong> You selected ${result.selected_option || 'nothing'}, but the correct answer was ${result.correct_option}.`
+                        }
+                    </div>
+                `;
+                
+                container.appendChild(resultCard);
+            });
+        }
+
+        function getOptionText(result, option) {
+            // This is a simplified version - in real implementation, you'd fetch this from the question data
+            return 'Option ' + option;
+        }
+    </script>
+</body>
+</html>

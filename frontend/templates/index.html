@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Master - Challenge Your Mind, Master Your Knowledge</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">🎯 Quiz Master</a>
+            <ul class="navbar-menu">
+                <li><a href="/" class="navbar-link">Home</a></li>
+                <li><a href="/leaderboard" class="navbar-link">🏆 Leaderboard</a></li>
+            </ul>
+            <div class="navbar-user">
+                <a href="/login" class="btn btn-outline">Sign In</a>
+                <a href="/register" class="btn btn-primary">Get Started Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1 class="hero-title">🚀 Elevate Your Knowledge</h1>
+            <p class="hero-subtitle">Challenge yourself with engaging quizzes, track your progress, and compete with learners worldwide!</p>
+            <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                <a href="/register" class="btn btn-primary" style="font-size: 1.125rem; padding: 1rem 2.5rem;">
+                    🎓 Start Learning Now
+                </a>
+                <a href="/leaderboard" class="btn btn-outline" style="font-size: 1.125rem; padding: 1rem 2.5rem;">
+                    👀 View Top Performers
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">1000+</div>
+                <div class="stat-label">Active Learners</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">50+</div>
+                <div class="stat-label">Quiz Categories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">5000+</div>
+                <div class="stat-label">Questions Available</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">24/7</div>
+                <div class="stat-label">Available Access</div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <h2 style="text-align: center; color: white; margin: 4rem 0 2.5rem; font-size: 2.5rem; font-weight: 900;">
+            ✨ Why Choose Quiz Master?
+        </h2>
+        <div class="grid grid-3">
+            <div class="card feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Diverse Quiz Library</h3>
+                <p>Explore a vast collection of quizzes spanning multiple categories including Science, Mathematics, History, Technology, and more. New quizzes added regularly!</p>
+            </div>
+            <div class="card feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Smart Progress Tracking</h3>
+                <p>Monitor your learning journey with detailed analytics. Track your scores, identify weak areas, and watch your knowledge grow over time.</p>
+            </div>
+            <div class="card feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Compete & Excel</h3>
+                <p>Challenge yourself and climb the global leaderboard. Compare your performance with peers and become the ultimate Quiz Master!</p>
+            </div>
+            <div class="card feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Real-Time Experience</h3>
+                <p>Take timed quizzes with instant feedback. Get immediate results and detailed explanations to enhance your learning experience.</p>
+            </div>
+            <div class="card feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure & Private</h3>
+                <p>Your data is protected with industry-standard security. Focus on learning while we handle the rest with complete privacy.</p>
+            </div>
+            <div class="card feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Learn Anywhere</h3>
+                <p>Responsive design works seamlessly across all devices. Study on desktop, tablet, or mobile - your progress syncs automatically.</p>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <h2 style="text-align: center; color: white; margin: 4rem 0 2.5rem; font-size: 2.5rem; font-weight: 900;">
+            🎮 How It Works
+        </h2>
+        <div class="grid grid-3">
+            <div class="card" style="text-align: center;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2.5rem; font-weight: 900; color: white; box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);">1</div>
+                <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;">Create Account</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">Sign up for free in seconds. No credit card required. Start your learning journey instantly!</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--secondary-color), #a78bfa); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2.5rem; font-weight: 900; color: white; box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);">2</div>
+                <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;">Choose Quiz</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">Browse through various categories and select quizzes that match your interests and learning goals.</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--success-color), #34d399); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2.5rem; font-weight: 900; color: white; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);">3</div>
+                <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;">Take Quiz & Learn</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">Answer questions, get instant feedback, and watch your knowledge expand with every quiz!</p>
+            </div>
+        </div>
+
+        <!-- Testimonials Section -->
+        <h2 style="text-align: center; color: white; margin: 4rem 0 2.5rem; font-size: 2.5rem; font-weight: 900;">
+            💬 What Learners Say
+        </h2>
+        <div class="grid grid-2">
+            <div class="card">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; font-weight: 900;">S</div>
+                    <div>
+                        <h4 style="font-weight: 800; margin-bottom: 0.25rem;">Sarah Johnson</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Computer Science Student</p>
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); line-height: 1.6; font-style: italic;">"Quiz Master has transformed the way I study! The instant feedback and detailed explanations help me learn from my mistakes. My grades have improved significantly!"</p>
+            </div>
+            <div class="card">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--success-color), #34d399); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; font-weight: 900;">M</div>
+                    <div>
+                        <h4 style="font-weight: 800; margin-bottom: 0.25rem;">Michael Chen</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Professional Developer</p>
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); line-height: 1.6; font-style: italic;">"Perfect for staying sharp! I use Quiz Master during my breaks to keep my technical knowledge up-to-date. The competitive leaderboard keeps me motivated!"</p>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="card" style="text-align: center; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; margin-top: 4rem; padding: 4rem 2rem;">
+            <h2 style="margin-bottom: 1.5rem; font-size: 2.5rem; font-weight: 900; color: white;">Ready to Master Your Knowledge?</h2>
+            <p style="margin-bottom: 2.5rem; font-size: 1.25rem; color: rgba(255,255,255,0.9);">Join thousands of learners who are already improving their skills and competing for the top spot!</p>
+            <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                <a href="/register" class="btn btn-primary" style="background: white; color: var(--primary-color); font-size: 1.125rem; padding: 1rem 2.5rem;">
+                    🚀 Create Free Account
+                </a>
+                <a href="/login" class="btn btn-outline" style="border-color: white; color: white; font-size: 1.125rem; padding: 1rem 2.5rem;">
+                    Already a member? Sign In
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Quiz Master. Empowering learners worldwide. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.875rem; opacity: 0.8;">Made with ❤️ for passionate learners</p>
+    </footer>
+</body>
+</html>

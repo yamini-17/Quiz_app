@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Quiz Master</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1 class="auth-title">🎯 Welcome Back!</h1>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.125rem;">
+                Sign in to continue your learning journey
+            </p>
+            
+            <div id="alert-container"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">📧 Email Address</label>
+                    <input type="email" class="form-input" id="email" placeholder="your.email@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">🔒 Password</label>
+                    <input type="password" class="form-input" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.125rem; margin-top: 1rem;">
+                    Sign In 🚀
+                </button>
+            </form>
+            
+            <div class="auth-link">
+                Don't have an account? <a href="/register">Create one now</a>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 0.5rem;">
+                    <strong>Demo Accounts:</strong>
+                </p>
+                <p style="color: var(--text-secondary); font-size: 0.875rem;">
+                    Admin: admin@quiz.com / admin123<br>
+                    User: john@example.com / user123
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/auth.js"></script>
+</body>
+</html>

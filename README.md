@@ -46,22 +46,27 @@ This application provides an intuitive interface for users to take quizzes and f
 ## **Screenshots**
 
 ### **Dashboard**
+![Dashboard](https://github.com/yamini-17/project-Inventory/blob/main/Screenshot%202025-10-22%20010206.png?raw=true)
 
 The Dashboard gives users access to quiz categories, shows progress, and acts as the main navigation area for starting quizzes or viewing results.
 
 ### **Login / Register Pages**
+![Dashboard](https://github.com/yamini-17/Quiz_app/blob/main/login%20page.jpg?raw=true)
 
 The Dashboard gives users access to quiz categories, shows progress, and acts as the main navigation area for starting quizzes or viewing results.
 
 ### **About Page**
+![Dashboard](https://github.com/yamini-17/project-Inventory/blob/main/Screenshot%202025-10-22%20010206.png?raw=true)
 
 The About Page explains the purpose of the platform, learning benefits, and available quiz categories, helping users understand what the app offers.
 
 ### **Landing Page**
+![Dashboard](https://github.com/yamini-17/project-Inventory/blob/main/Screenshot%202025-10-22%20010206.png?raw=true)
 
 The Landing Page provides a clean introduction to the Quiz App, showing an overview, platform purpose, and quick navigation to Login, Create Account, and Dashboard.
 
 ### **Quiz & Results**
+![Dashboard](https://github.com/yamini-17/project-Inventory/blob/main/Screenshot%202025-10-22%20010206.png?raw=true)
 
 Users can take quizzes and receive instantly calculated results, including score, correct answers, and performance summary.
 

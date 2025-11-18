@@ -39,7 +39,7 @@ This application provides an intuitive interface for users to take quizzes and f
 * **Frontend:** HTML, CSS, JavaScript (Templates)
 * **Backend:** Flask (Python)
 * **Database:** MySQL
-* **Other Tools:** Git, GitHub, JWT, Bcrypt
+* **Other Tools:** Git, GitHub
 
 ---
 

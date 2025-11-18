@@ -20,13 +20,13 @@ This application provides an intuitive interface for users to take quizzes and f
 ---
 ## **Project Features**
 
-**Landing Page:** Clean introduction with overview, key statistics, and navigation to Login, Create Account, and Dashboard
-
-**User Authentication:** Create account, login, and secure password handling
-
 **Dashboard:** View quiz options, track progress, and access quiz-related pages
 
+**Login/Register pages:** Create account, login, and secure password handling
+
 **About Page:** Provides platform purpose, learning benefits, and details about quiz categories
+
+**Landing Page:** Clean introduction with overview, key statistics, and navigation to Login, Create Account, and Dashboard
 
 **Quiz & Results:** Attempt quizzes and instantly view auto-calculated scores and answers
 
